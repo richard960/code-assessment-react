@@ -7,14 +7,14 @@ function App() {
   const [location, setLocation] = useState({});
   const [toggle, setToggle] = useState(true);
 
-  const toggled = function(e) {
-    if(e.target.innerText === 'Map') {
-      setToggle(false);
-    }
-    else {
-      setToggle(true);
-    }
+  const toggleMap = () => {
+    setToggle(false);
   }
+
+  const toggleList = () => {
+    setToggle(true);
+  }
+
     useEffect(() => {
       navigator.geolocation.getCurrentPosition(async (results) => {
         const {latitude, longitude} = results.coords;
@@ -25,13 +25,13 @@ function App() {
   return (
     <div className="App">
       <header id='mobile-header'>
-      <div id='mobile-tab'>
-      <span className='block'></span>
-      <span className='block'></span>
-      <span className='block'></span>
-      </div>
-      <img src={rioLogoMobile} alt='logo'></img>
-      <img src={locationIcon} alt='location icon'></img>
+        <div id='mobile-tab'>
+          <span className='block'></span>
+          <span className='block'></span>
+          <span className='block'></span>
+        </div>
+        <img src={rioLogoMobile} alt='logo'></img>
+        <img src={locationIcon} alt='location icon'></img>
       </header>
       <header id='nav-header'>
         <img src={rioLogo} alt='logo'></img>
@@ -42,8 +42,8 @@ function App() {
       </header>
       <Trucks location={location} toggle={toggle}/>
       <footer>
-        <a onClick={toggled} className={toggle ? 'selected' : ''}>List</a>
-        <a onClick={toggled} className={toggle ? '' : 'selected'}>Map</a>
+        <a onClick={toggleList} className={toggle ? 'selected' : ''}>List</a>
+        <a onClick={toggleMap} className={toggle ? '' : 'selected'}>Map</a>
       </footer>
     </div>
   );

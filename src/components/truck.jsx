@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useMemo} from 'react';
 import key from '../assets/config.js';
 import phoneIcon from '../assets/phone-icon.png';
-function Truck({truck, date, today, latitude, longitude, setArea, setModel, day, getCurrentTruck, model}) {
+function Truck({truck, date, today, latitude, longitude, setArea, setModel, day, getSelectedTruck, model}) {
   const [distance, setDistance] = useState(null);
 
   const getTime = function() {
@@ -45,7 +45,7 @@ function Truck({truck, date, today, latitude, longitude, setArea, setModel, day,
         }}>DIRECTIONS</button>
         <button onClick={() => {
           setModel();
-          getCurrentTruck(truck);
+          getSelectedTruck(truck);
           }}>MORE INFO</button>
       </div>
     </div>

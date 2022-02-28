@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import Truck from './truck.jsx';
-import CurrentTruck from './currentTruck.jsx';
+import SelectedTruck from './selectedTruck.jsx';
 import key from '../assets/config.js';
 import noImg from '../assets/noimg.png';
 import phoneIcon from '../assets/phone-icon.png';
@@ -43,6 +43,102 @@ function Trucks({location, toggle}) {
     "saturday_close": "4:43 PM",
     "sunday_open": "8:14 AM",
     "sunday_close": "4:05 PM"
+}, {
+  "id": 1,
+  "name": "Schmeler Inc",
+  "url": "http://mapy.cz/quam/sapien/varius/ut.jsp",
+  "address": "742 Bashford Court",
+  "city": "Fort Wayne",
+  "state": "IN",
+  "postal_code": "46862",
+  "latitude": "41.0938",
+  "longitude": "-85.0707",
+  "monday_open": "9:41 AM",
+  "monday_close": "4:42 PM",
+  "tuesday_open": "9:08 AM",
+  "tuesday_close": "9:49 PM",
+  "wednesday_open": "6:56 AM",
+  "wednesday_close": "5:15 PM",
+  "thursday_open": "9:57 AM",
+  "thursday_close": "8:10 PM",
+  "friday_open": "6:43 AM",
+  "friday_close": "5:31 PM",
+  "saturday_open": "6:45 AM",
+  "saturday_close": "4:43 PM",
+  "sunday_open": "8:14 AM",
+  "sunday_close": "4:05 PM"
+}, {
+  "id": 1,
+  "name": "Schmeler Inc",
+  "url": "http://mapy.cz/quam/sapien/varius/ut.jsp",
+  "address": "742 Bashford Court",
+  "city": "Fort Wayne",
+  "state": "IN",
+  "postal_code": "46862",
+  "latitude": "41.0938",
+  "longitude": "-85.0707",
+  "monday_open": "9:41 AM",
+  "monday_close": "4:42 PM",
+  "tuesday_open": "9:08 AM",
+  "tuesday_close": "9:49 PM",
+  "wednesday_open": "6:56 AM",
+  "wednesday_close": "5:15 PM",
+  "thursday_open": "9:57 AM",
+  "thursday_close": "8:10 PM",
+  "friday_open": "6:43 AM",
+  "friday_close": "5:31 PM",
+  "saturday_open": "6:45 AM",
+  "saturday_close": "4:43 PM",
+  "sunday_open": "8:14 AM",
+  "sunday_close": "4:05 PM"
+}, {
+  "id": 1,
+  "name": "Schmeler Inc",
+  "url": "http://mapy.cz/quam/sapien/varius/ut.jsp",
+  "address": "742 Bashford Court",
+  "city": "Fort Wayne",
+  "state": "IN",
+  "postal_code": "46862",
+  "latitude": "41.0938",
+  "longitude": "-85.0707",
+  "monday_open": "9:41 AM",
+  "monday_close": "4:42 PM",
+  "tuesday_open": "9:08 AM",
+  "tuesday_close": "9:49 PM",
+  "wednesday_open": "6:56 AM",
+  "wednesday_close": "5:15 PM",
+  "thursday_open": "9:57 AM",
+  "thursday_close": "8:10 PM",
+  "friday_open": "6:43 AM",
+  "friday_close": "5:31 PM",
+  "saturday_open": "6:45 AM",
+  "saturday_close": "4:43 PM",
+  "sunday_open": "8:14 AM",
+  "sunday_close": "4:05 PM"
+}, {
+  "id": 1,
+  "name": "Schmeler Inc",
+  "url": "http://mapy.cz/quam/sapien/varius/ut.jsp",
+  "address": "742 Bashford Court",
+  "city": "Fort Wayne",
+  "state": "IN",
+  "postal_code": "46862",
+  "latitude": "41.0938",
+  "longitude": "-85.0707",
+  "monday_open": "9:41 AM",
+  "monday_close": "4:42 PM",
+  "tuesday_open": "9:08 AM",
+  "tuesday_close": "9:49 PM",
+  "wednesday_open": "6:56 AM",
+  "wednesday_close": "5:15 PM",
+  "thursday_open": "9:57 AM",
+  "thursday_close": "8:10 PM",
+  "friday_open": "6:43 AM",
+  "friday_close": "5:31 PM",
+  "saturday_open": "6:45 AM",
+  "saturday_close": "4:43 PM",
+  "sunday_open": "8:14 AM",
+  "sunday_close": "4:05 PM"
 }]);
 
   const localZip = localStorage.getItem('zip');
@@ -50,12 +146,12 @@ function Trucks({location, toggle}) {
   const [lng, setLng] = useState(null);
   const [lat, setLat] = useState(null);
   const [model, setModel] = useState(false);
-  const [currentTruck, setCurrentTruck] = useState({})
+  const [selectedTruck, setSelectedTruck] = useState({})
   const date = new Date();
   const today = date.getDay();
 
   const openTab = function() {
-    window.open(currentTruck.url, "_blank");
+    window.open(selectedTruck.url, "_blank");
   }
   const setArea = function(lati, long) {
     setLng(long);
@@ -65,12 +161,12 @@ function Trucks({location, toggle}) {
     setModel(!model);
   }
 
-  const getCurrentTruck = function(truck) {
-    setCurrentTruck(truck);
+  const getSelectedTruck = function(truck) {
+    setSelectedTruck(truck);
   }
 
   const getData = function() {
-    // cant load data api limit reached
+    // cant load data api limit
     // fetch('https://my.api.mockaroo.com/locations.json?key=a45f1200').then((results) => {
     //   results.json().then((obj) => {
     //    setTrucks(obj)
@@ -100,7 +196,7 @@ function Trucks({location, toggle}) {
         <div className='container' style={{display: toggle === false ? 'none' : 'initial'}}>
           <div>
             {trucks.map((truck) => {
-              return <Truck truck={truck} date={date} today={today} key={truck.id} latitude={truck.latitude} longitude={truck.longitude} setArea={setArea} setModel={toggel} model={model} day={day} getCurrentTruck={getCurrentTruck}/>
+              return <Truck truck={truck} date={date} today={today} key={truck.id} latitude={truck.latitude} longitude={truck.longitude} setArea={setArea} setModel={toggel} model={model} day={day} getSelectedTruck={getSelectedTruck}/>
             })}
           </div>
         </div>
@@ -114,7 +210,7 @@ function Trucks({location, toggle}) {
             <div id='truck-info'>
               <img id='no-img' src={noImg}></img>
                 <span onClick={toggel} id='close'>&#x2715;</span>
-              <CurrentTruck currentTruck={currentTruck} today={today} day={day}/>
+              <SelectedTruck selectedTruck={selectedTruck} today={today} day={day}/>
               <button id='button-detail' type='button' onClick={openTab}>VIEW FULL DETAILS</button>
             </div>
            </div>
